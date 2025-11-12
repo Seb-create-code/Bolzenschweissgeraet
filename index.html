@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bolzenschweiß Rechner</title>
+
+  <!-- =========================
+       KONFIGURATION FARBTHEMA
+       ========================= -->
+  <style id="config-colors">
+    :root{
+      --bg-page: #020617;
+      --bg-card: #020617;
+      --bg-panel: #020617;
+      --border-soft: #1e293b;
+      --accent: #22c55e;
+      --accent-soft: #16a34a33;
+      --accent-strong: #22c55e;
+      --danger: #ef4444;
+      --text-main: #e2e8f0;
+      --text-muted: #94a3b8;
+      --text-strong: #f9fafb;
+      --shadow-soft: 0 20px 40px rgba(15,23,42,0.8);
+      --radius-xl: 1.5rem;
+      --radius-lg: 1rem;
+      --radius-pill: 999px;
+      --input-bg: #020617;
+      --input-border: #1e293b;
+      --input-border-focus: #22c55e;
+    }
+  </style>
+
+  <link rel="stylesheet" href="./assets/css/styles.css">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="theme-color" content="#020617">
+</head>
+<body>
+  <div id="app-root">
+    <header id="site-header"></header>
+
+    <main class="page-main">
+      <section class="layout-grid">
+        <section class="card card-config">
+          <div class="card-header">
+            <h1>Bolzenschweiß Rechner</h1>
+            <p>Ermittlung von Schweißstrom und Hub für ausgewählte Stud Parameter.</p>
+          </div>
+
+          <form id="stud-form" class="form-grid">
+            <div class="form-field">
+              <label for="studType">Bolzentyp</label>
+              <select id="studType" required>
+                <option value="">Bitte wählen</option>
+                <option value="gewindebolzen">Gewindebolzen</option>
+                <option value="isolierstift">Isolierstift</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="material">Material</label>
+              <select id="material" required>
+                <option value="">Bitte wählen</option>
+                <option value="stahl">Stahl</option>
+                <option value="edelstahl">Edelstahl</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="diameter">Bolzendurchmesser (mm)</label>
+              <select id="diameter" required>
+                <option value="">Bitte wählen</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="sheetThickness">Blechdicke (mm)</label>
+              <input id="sheetThickness" type="number" step="0.1" min="0.5" max="20" placeholder="z. B. 3.0" required>
+            </div>
+
+            <div class="form-field">
+              <label for="mode">Verfahren</label>
+              <select id="mode" required>
+                <option value="">Bitte wählen</option>
+                <option value="kurzzeit">Kurzzeitbolzenschweißen</option>
+                <option value="hubzündung">Hubzündung</option>
+              </select>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Berechnen</button>
+              <button type="button" id="btnReset" class="btn-ghost">Zurücksetzen</button>
+            </div>
+          </form>
+
+          <p class="hint-text">
+            Die Werte sind Richtwerte und ersetzen nicht die Einstellung gemäß Datenblatt und Schweißversuch.
+          </p>
+        </section>
+
+        <section class="card card-result" id="result-card">
+          <div class="card-header">
+            <h2>Empfohlene Einstellwerte</h2>
+            <p>Schweißstrom, Hubdruck und weitere Parameter.</p>
+          </div>
+
+          <div id="result-content" class="result-content result-empty">
+            <p>Noch keine Berechnung ausgeführt.</p>
+            <p class="hint-text">Bitte Parameter wählen und Berechnung starten.</p>
+          </div>
+        </section>
+
+        <section class="card card-table">
+          <div class="card-header">
+            <h2>Parameter Tabelle (Auszug)</h2>
+            <p>Beispieleinträge, die im Rechner verwendet werden.</p>
+          </div>
+          <div class="table-wrapper">
+            <table id="preview-table">
+              <thead>
+                <tr>
+                  <th>Bolzentyp</th>
+                  <th>Material</th>
+                  <th>Durchmesser</th>
+                  <th>Blechbereich</th>
+                  <th>Strom (A)</th>
+                  <th>Hub (mm)</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer id="site-footer"></footer>
+  </div>
+
+  <script src="./assets/js/includes.js" defer></script>
+  <script src="./assets/js/app.js" defer></script>
+  <script src="./service-worker.js"></script>
+</body>
+</html>
